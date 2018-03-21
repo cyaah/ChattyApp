@@ -5,7 +5,7 @@ class ChatBar extends Component {
 		super(props);
 
 	  this.state = {
-      username: this.props.user.name,
+      username: '',
       messages: ''
     };	
 	}
@@ -17,12 +17,31 @@ class ChatBar extends Component {
 
 	}
 
+	submitUser(){
+		const user = this.state.username;
+		
+		this.props.userChanged(user);
+		this.setState({username: ''})
+	}
+
 	render() {
 		  	console.log("Rendering <App/>");
 		return (
 		<div>
 		<footer className="chatbar">
-		  <input className="chatbar-username" placeholder="Your Name (Optional)" defaultValue = {this.props.user.name} />
+		  <input className="chatbar-username"
+		   placeholder="Your Name (Optional)" 
+		   value = {this.state.username} 
+		   onChange = {evt =>{
+		   	this.setState({username : evt.target.value})
+
+		   }}
+		   onKeyPress={evt =>{
+		   	if (evt.key === 'Enter'){
+		   		this.submitUser()
+		   	}
+		   }}
+		   	/>
   		  <input 
   		  className="chatbar-message" 
   		  placeholder="Type a message and hit ENTER"  
@@ -33,9 +52,7 @@ class ChatBar extends Component {
           onKeyPress={evt=> { 
           	if (evt.key === 'Enter'){
           		this.submitMessage()
-		this.value ='';
           	}
-          	evt
           }}/>
 
 

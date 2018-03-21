@@ -9,7 +9,7 @@ class App extends Component {
   	super(props);
 
   	this.state = {
-      currentUser: {name: "Bob"}, // optional. if currentUser is not defined, it means the user is Anonymous
+      currentUser: {name: ""}, // optional. if currentUser is not defined, it means the user is Anonymous
   	  messages: []
   	};
   } 
@@ -40,14 +40,22 @@ handleMessageChange = evt => {
 
 };
 
+handleUserChange = evt =>{
+
+  const newUser = {username : evt};  
+  const message = this.state.messages.concat(newUser)
+  this.setState({messages : message});
+  console.log(this.state.messages);
+};
+
   
 
   render() {
   	console.log("Rendering <App/>");
     return (
   	<div>	
-      <MessageList messages={this.state.messages}/>   
-      <ChatBar user={this.state.currentUser} messageChanged={this.handleMessageChange}/>
+      <MessageList messages={this.state.messages} user={this.state.messages}/>   
+      <ChatBar userChanged={this.handleUserChange} messageChanged={this.handleMessageChange}/>
     </div>	
 
     );
