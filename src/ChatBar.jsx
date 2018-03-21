@@ -13,7 +13,7 @@ class ChatBar extends Component {
 	submitMessage () {
 		const content = this.state.messages 
 		this.props.messageChanged(content);
-		// console.log(content);
+		this.setState({messages:''}) 
 
 	}
 
@@ -33,7 +33,9 @@ class ChatBar extends Component {
           onKeyPress={evt=> { 
           	if (evt.key === 'Enter'){
           		this.submitMessage()
+		this.value ='';
           	}
+          	evt
           }}/>
 
 

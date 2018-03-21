@@ -10,22 +10,20 @@ class App extends Component {
 
   	this.state = {
       currentUser: {name: "Bob"}, // optional. if currentUser is not defined, it means the user is Anonymous
-  	  messages: [
-    {
-      username: "Bob",
-      content: "Has anyone seen my marbles?",
-    },
-    {
-      username: "Anonymous",
-      content: "No, I think you lost them. You lost your marbles Bob. You lost them for good."
-    }
-  ]
+  	  messages: []
   	};
   } 
 
 componentDidMount() {
     this.socket = new WebSocket('ws://localhost:3001');
     console.log('Connected to server');
+     this.socket.onmessage = (event ) =>{
+     let newList = this.state.messages.concat(JSON.parse(event.data));
+      console.log('123',event.data);
+      this.setState({messages:newList})
+     }
+
+
      this.socket.onopen = function (event) {
      console.log('Opened web socket connection');
     }
@@ -40,19 +38,7 @@ handleMessageChange = evt => {
 	// this.setState({messages:message}) 
   this.socket.send(JSON.stringify(New));
 
-
-
-
-
-
-
-
-
-
-
-
-
-                    };
+};
 
   
 
