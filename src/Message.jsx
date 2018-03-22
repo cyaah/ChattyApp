@@ -20,6 +20,8 @@ class Message extends Component {
 		         <span className ="message-username">{user}</span>
 	  	      </div>
 		      );
+	  	    } else {
+	  	    	return <div>Foo</div>
 	  	    }			
 			  	  
 	}

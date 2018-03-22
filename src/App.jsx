@@ -10,7 +10,8 @@ class App extends Component {
 
   	this.state = {
       currentUser: {name: ""}, // optional. if currentUser is not defined, it means the user is Anonymous
-  	  messages: []
+  	  messages: [],
+      active : 0 
   	};
   } 
 
@@ -18,6 +19,13 @@ componentDidMount() {
     this.socket = new WebSocket('ws://localhost:3001');
     console.log('Connected to server');
      this.socket.onmessage = (event ) =>{
+      var data = JSON.parse(event.data);
+      console.log(data);
+      if (data.type === 'activeUser'){
+        this.setState({active: data.value})
+        console.log(this.state.active)
+      }
+      else {
      let newList = this.state.messages.concat(JSON.parse(event.data));
       console.log(newList);
       this.setState({messages:newList})
@@ -27,6 +35,7 @@ componentDidMount() {
      this.socket.onopen = function (event) {
      console.log('Opened web socket connection');
     }
+  }  
 }     
 
 
@@ -52,9 +61,16 @@ handleUserChange = (type,evt) =>{
   
 
   render() {
+    const activeUsers =  this.state.active;
   	console.log("Rendering <App/>");
     return (
-  	<div>	
+      <div>
+        <nav className="navbar">
+      <a href="/" className="navbar-brand">Chatty</a>
+    <span className = 'activeUser'> Active Users {activeUsers} </span> 
+    </nav>
+
+  		
       <MessageList messages={this.state.messages} user={this.state.messages}/>   
       <ChatBar userChanged={this.handleUserChange} messageChanged={this.handleMessageChange}/>
     </div>	
