@@ -29,7 +29,7 @@ wss.on('connection', (ws) => {
   	const uuid = uuidv4();
   	const parsed = JSON.parse(data) 
   	parsed.id = uuid ; 
-  	console.log(parsed);
+  	//console.log(parsed);
   	wss.broadcast(parsed);
   
   });

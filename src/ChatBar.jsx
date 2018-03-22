@@ -12,16 +12,22 @@ class ChatBar extends Component {
 
 	submitMessage () {
 		const content = this.state.messages 
-		this.props.messageChanged(content);
+		const user = this.state.username
+		this.props.messageChanged('msgChange',{content, user});
+		console.log('test',this.state.messages);
 		this.setState({messages:''}) 
 
 	}
 
-	submitUser(){
-		const user = this.state.username;
+	submitUser(evt){
+		const oldUser = this.state.username;
+		this.setState({username : evt.target.value}, () =>{
+		const user=this.state.username;
+		//console.log(oldUser, user);
+		this.props.messageChanged('userChange',{oldUser,user});
+		})
 		
-		this.props.userChanged(user);
-		this.setState({username: ''})
+		//this.setState({username: ''})
 	}
 
 	render() {
@@ -31,14 +37,13 @@ class ChatBar extends Component {
 		<footer className="chatbar">
 		  <input className="chatbar-username"
 		   placeholder="Your Name (Optional)" 
-		   value = {this.state.username} 
-		   onChange = {evt =>{
-		   	this.setState({username : evt.target.value})
+		   defaultValue = {this.state.username} 
+		   // onChange = {evt =>{
 
-		   }}
+		   // }}
 		   onKeyPress={evt =>{
 		   	if (evt.key === 'Enter'){
-		   		this.submitUser()
+		   		this.submitUser(evt)
 		   	}
 		   }}
 		   	/>

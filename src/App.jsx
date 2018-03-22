@@ -19,7 +19,7 @@ componentDidMount() {
     console.log('Connected to server');
      this.socket.onmessage = (event ) =>{
      let newList = this.state.messages.concat(JSON.parse(event.data));
-      console.log('123',event.data);
+      console.log(newList);
       this.setState({messages:newList})
      }
 
@@ -27,24 +27,25 @@ componentDidMount() {
      this.socket.onopen = function (event) {
      console.log('Opened web socket connection');
     }
-}   
+}     
 
 
 
-handleMessageChange = evt => {
-	const user = this.state.currentUser.name
-	const New = { username : user, content : evt}
-	const message = this.state.messages.concat(New)
+handleMessageChange = (type, props) =>{
+	// const user = this.state.messages.username;
+	const New = { ...props, type}; 
+
+	//const message = this.state.messages.concat(New)
 	// this.setState({messages:message}) 
+  console.log('testing',(New));
   this.socket.send(JSON.stringify(New));
 
 };
 
-handleUserChange = evt =>{
-
-  const newUser = {username : evt};  
-  const message = this.state.messages.concat(newUser)
-  this.setState({messages : message});
+handleUserChange = (type,evt) =>{
+  const newUser = {name : evt,};  
+  // const message = this.state.messages.concat(newUser)
+  this.setState({currentUser : newUser});
   console.log(this.state.messages);
 };
 
