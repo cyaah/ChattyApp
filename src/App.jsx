@@ -15,6 +15,7 @@ class App extends Component {
   	};
   } 
 
+
 componentDidMount() {
     this.socket = new WebSocket('ws://localhost:3001');
     console.log('Connected to server');
@@ -23,11 +24,11 @@ componentDidMount() {
       console.log(data);
       if (data.type === 'activeUser'){
         this.setState({active: data.value})
-        console.log(this.state.active)
+        
       }
       else {
      let newList = this.state.messages.concat(JSON.parse(event.data));
-      console.log(newList);
+      
       this.setState({messages:newList})
      }
 
@@ -39,18 +40,14 @@ componentDidMount() {
 }     
 
 
-
+// Function to handle the message change and send to server
 handleMessageChange = (type, props) =>{
 	// const user = this.state.messages.username;
 	const New = { ...props, type}; 
-
-	//const message = this.state.messages.concat(New)
-	// this.setState({messages:message}) 
-  console.log('testing',(New));
   this.socket.send(JSON.stringify(New));
 
 };
-
+//Handles user change and sends data to server 
 handleUserChange = (type,evt) =>{
   const newUser = {name : evt,};  
   // const message = this.state.messages.concat(newUser)
@@ -66,9 +63,9 @@ handleUserChange = (type,evt) =>{
     return (
       <div>
         <nav className="navbar">
-      <a href="/" className="navbar-brand">Chatty</a>
-    <span className = 'activeUser'> Active Users {activeUsers} </span> 
-    </nav>
+          <a href="/" className="navbar-brand">Chatty</a>
+          <span className = 'activeUser'> Active Users {activeUsers} </span> 
+        </nav>
 
   		
       <MessageList messages={this.state.messages} user={this.state.messages}/>   

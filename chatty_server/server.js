@@ -21,6 +21,7 @@ wss.broadcast = function broadcast(data) {
   });
 };
 
+//Function to update if user is added 
 function activeUser(){
   var active = {
     type : 'activeUser',
@@ -43,7 +44,7 @@ wss.on('connection', (ws) => {
   	const uuid = uuidv4();
   	const parsed = JSON.parse(data) 
   	parsed.id = uuid ; 
-  	//console.log(parsed);
+  	
   	wss.broadcast(parsed);
   
   });

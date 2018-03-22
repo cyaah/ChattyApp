@@ -1,5 +1,6 @@
 import React, {Component} from 'react';
 
+//Component that checks what type of data is being recieved and renders the appropriate html
 class Message extends Component {
 	render () {
 		const {user, content, type, oldUser}=this.props.msg; 
@@ -7,7 +8,7 @@ class Message extends Component {
 			if (type === 'msgChange'){
 			return (
 	  		  <div className="message">
-	  		    <span className ="message-username">{user}</span>
+	  		    <span className ="message-username">{user|| 'anonymous'}</span>
 		        <span className ="message-content">{content}</span>
 	  	      </div>
 	  	      );

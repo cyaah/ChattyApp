@@ -9,7 +9,7 @@ class ChatBar extends Component {
       messages: ''
     };	
 	}
-
+//Handles new message and changes the state 
 	submitMessage () {
 		const content = this.state.messages 
 		const user = this.state.username
@@ -18,7 +18,7 @@ class ChatBar extends Component {
 		this.setState({messages:''}) 
 
 	}
-
+//Handles user change and changes the current state
 	submitUser(evt){
 		const oldUser = this.state.username;
 		this.setState({username : evt.target.value}, () =>{
@@ -27,7 +27,7 @@ class ChatBar extends Component {
 		this.props.messageChanged('userChange',{oldUser,user});
 		})
 		
-		//this.setState({username: ''})
+		
 	}
 
 	render() {
@@ -38,9 +38,6 @@ class ChatBar extends Component {
 		  <input className="chatbar-username"
 		   placeholder="Your Name (Optional)" 
 		   defaultValue = {this.state.username} 
-		   // onChange = {evt =>{
-
-		   // }}
 		   onKeyPress={evt =>{
 		   	if (evt.key === 'Enter'){
 		   		this.submitUser(evt)
