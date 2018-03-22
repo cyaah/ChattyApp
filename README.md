@@ -3,6 +3,10 @@ React Boilerplate
 
 A minimal and light dev environment for ReactJS.
 
+### Screenshots
+Screenshot of chatty app   https://raw.githubusercontent.com/cyaah/ChattyApp/master/docs/Chatty-message.png
+
+
 ### Usage
 
 Clone the boilerplate and create your own git repo.
